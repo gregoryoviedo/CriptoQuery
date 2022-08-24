@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import styled from '@emotion/styled';
-import imagen from './cryptomonedas.png';
-import Formulario from './components/Formulario';
-import Cotizacion from './components/Cotizacion';
-import Spinner from './components/Spinner';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+
+//componentes
+import Formulario from "./components/Formulario";
+import Cotizacion from "./components/Cotizacion";
+import Spinner from "./components/Spinner";
+import Inicio from "./components/Inicio";
+import imagen from "./assets/cryptomonedas.png";
+
+//librerias
+import styled from "@emotion/styled";
+import axios from "axios";
+import Footer from "./components/footer";
 
 const Contenedor = styled.div`
   max-width: 900px;
   margin: 0 auto;
-  @media (min-width:992px) {
+  @media (min-width: 992px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 2rem;
   }
+  padding: 1rem;
+  padding-bottom: 7rem;
 `;
 
 const Imagen = styled.img`
@@ -22,7 +30,7 @@ const Imagen = styled.img`
 `;
 
 const Heading = styled.h1`
-  font-family: 'Bebas Neue', cursive;
+  font-family: "Bebas Neue", cursive;
   color: #fff;
   text-align: left;
   font-weight: 700;
@@ -31,37 +39,25 @@ const Heading = styled.h1`
   margin-top: 80px;
 
   &::after {
-    content: '';
+    content: "";
     width: 100px;
     height: 6px;
-    background-color: #66A2FE;
+    background-color: #66a2fe;
     display: block;
   }
 `;
 
-const Footer = styled.footer`
-  background: linear-gradient(to right, rgba(78, 42, 186, .4), rgba(0, 4, 40, .8)); 
-  text-align: center;
-  font-size: 20px;
-  padding: 1rem;
-  border-radius: 12px;
-  margin: 1rem auto;
-  max-width: 880px;
-  color: #fff;
-`;
-
 function App() {
-
-  const [moneda, guardarMoneda] = useState('');
-  const [criptomoneda, guardarCriptomoneda] = useState('');
+  const [moneda, guardarMoneda] = useState("");
+  const [criptomoneda, guardarCriptomoneda] = useState("");
   const [resultado, guardarResultado] = useState({});
   const [cargando, guardarCargando] = useState(false);
 
   useEffect(() => {
     const cotizarCriptomoneda = async () => {
       //evitamos la ejecucion la primera vez
-      if(moneda === '') return;
-      
+      if (moneda === "") return;
+
       //consultar la API para obtener la cotizacion
       const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
 
@@ -75,35 +71,37 @@ function App() {
         //Cambiar el estado de cargando
         guardarCargando(false);
 
-        //Guardar cotizacion 
+        //Guardar cotizacion
         guardarResultado(resultado.data.DISPLAY[criptomoneda][moneda]);
       }, 3000);
-    }
+    };
     cotizarCriptomoneda();
   }, [moneda, criptomoneda]);
 
   //mostrar spinner o resultado
-  const compnente = (cargando) ? <Spinner />: <Cotizacion resultado={resultado} />
+  const compnente = cargando ? (
+    <Spinner />
+  ) : (
+    <Cotizacion resultado={resultado} />
+  );
 
   return (
     <div>
+      <Inicio />
       <Contenedor>
-      <div>
-        <Imagen 
-          src={imagen}
-          alt="Imagen cripto"
-        />
-      </div>
-      <div>
-        <Heading>Cotiza Criptomonedas al Instante</Heading>
-        <Formulario 
-          guardarMoneda={guardarMoneda}
-          guardarCriptomoneda={guardarCriptomoneda}
-        />
-        {compnente}
-      </div>
-    </Contenedor>
-      <Footer>Creado por <b>Gregory Morantes</b></Footer>
+        <div>
+          <Imagen src={imagen} alt="Imagen cripto" />
+        </div>
+        <div>
+          <Heading>Cotiza Criptomonedas al Instante</Heading>
+          <Formulario
+            guardarMoneda={guardarMoneda}
+            guardarCriptomoneda={guardarCriptomoneda}
+          />
+          {compnente}
+        </div>
+      </Contenedor>
+      <Footer />
     </div>
   );
 }

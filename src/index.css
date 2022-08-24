@@ -1,6 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #4e2aba;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4e2aba;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #4e2aba;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: transparent;
+}
+::-webkit-scrollbar-track:active {
+  background: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 body {
-  background: -webkit-linear-gradient(to right, #4E2ABA, #000428);  
-  background: linear-gradient(to right, #4E2ABA, #000428); 
+  background: -webkit-linear-gradient(to right, #4e2aba, #000428);
+  background: linear-gradient(to right, #4e2aba, #000428);
 }
 .error {
   background-color: #b7322c;
@@ -19,11 +58,11 @@ body {
   color: white;
 }
 .resultado p {
-  font-size: 18px!important;
+  font-size: 18px !important;
 }
 .resultado p span {
   font-weight: bold;
 }
-p.precio{
-  font-size: 30px!important;
+p.precio {
+  font-size: 30px !important;
 }
